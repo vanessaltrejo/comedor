@@ -64,7 +64,7 @@
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-clip">
 
     <!-- NAVBAR-->
     <%- include('partials/navbar') %>
@@ -98,36 +98,39 @@
                     <div class="contact-card scroll-reveal" style="--delay: 100ms;">
                         <h2 class="text-2xl font-black text-purple-900 mb-8">Envía un mensaje</h2>
                         
-                        <form action="#" class="space-y-6">
+                        <% if (typeof status !== 'undefined' && status === 'success') { %>
+                            <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-6 flex items-center gap-3">
+                                <span>¡Tu mensaje ha sido enviado exitosamente! Nos pondremos en contacto contigo pronto.</span>
+                            </div>
+                        <% } else if (typeof status !== 'undefined' && status === 'error') { %>
+                            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6 flex items-center gap-3">
+                                <span>Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.</span>
+                            </div>
+                        <% } %>
+
+                        <form action="/enviar-contacto" method="POST" class="space-y-6">
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="text-[10px] font-black text-gray-400 uppercase block mb-2 ml-1">Nombre Completo</label>
-                                    <input type="text" class="input-field" placeholder="Ej. Juan Pérez">
+                                    <input type="text" name="nombre" class="input-field" placeholder="Ej. Juan Pérez" required>
                                 </div>
                                 <div>
                                     <label class="text-[10px] font-black text-gray-400 uppercase block mb-2 ml-1">Correo Electrónico</label>
-                                    <input type="email" class="input-field" placeholder="ejemplo@correo.com">
+                                    <input type="email" name="correo" class="input-field" placeholder="ejemplo@correo.com" required>
                                 </div>
                             </div>
                             
                             <div>
                                 <label class="text-[10px] font-black text-gray-400 uppercase block mb-2 ml-1">Asunto</label>
-                                <input type="text" class="input-field" placeholder="¿En qué podemos ayudarte?">
+                                <input type="text" name="asunto" class="input-field" placeholder="¿En qué podemos ayudarte?" required>
                             </div>
 
                             <div>
                                 <label class="text-[10px] font-black text-gray-400 uppercase block mb-2 ml-1">Mensaje</label>
-                                <textarea class="input-field h-40 resize-none" placeholder="Escribe aquí tus comentarios..."></textarea>
+                                <textarea name="mensaje" class="input-field h-40 resize-none" placeholder="Escribe aquí tus comentarios..." required></textarea>
                             </div>
 
-                            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-4">
-                                <!-- Placeholder para el ReCAPTCHA -->
-                                <div class="bg-gray-50 px-4 py-3 rounded-xl border border-gray-100 flex items-center gap-4 w-full md:w-auto">
-                                    <div class="w-6 h-6 border-2 border-gray-300 rounded"></div>
-                                    <span class="text-sm text-gray-500 font-medium">No soy un robot</span>
-                                    <i class="fas fa-shield-alt text-gray-300 ml-4"></i>
-                                </div>
-
+                            <div class="flex flex-col md:flex-row items-center justify-end gap-6 pt-4">
                                 <button type="submit" class="w-full md:w-auto px-10 py-4 bg-purple-600 text-white rounded-full font-black text-sm hover:bg-purple-700 transition shadow-xl shadow-purple-100 uppercase tracking-widest">
                                     Enviar Formulario
                                 </button>

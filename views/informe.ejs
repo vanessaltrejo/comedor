@@ -65,7 +65,7 @@
     </style>
 </head>
 
-<body class="overflow-x-hidden">
+<body class="overflow-x-clip">
 
     <!-- NAVBAR -->
     <%- include('partials/navbar') %>
@@ -95,7 +95,7 @@
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
 
             <!-- SIDE NAVIGATION (Sub-menu) -->
-            <aside class="hidden lg:block lg:col-span-3 sticky top-32 h-fit">
+            <aside class="hidden lg:block lg:col-span-3 sticky top-32 self-start">
                 <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
                     <h3 class="text-purple-900 font-black text-xs uppercase tracking-widest mb-6 pl-4">Contenido</h3>
                     <nav class="flex flex-col space-y-1">
