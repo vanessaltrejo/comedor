@@ -7,7 +7,8 @@ const express = require('express');
 const path = require('path');
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Usamos un string de fallback para que no crashee todo el servidor si olvidas poner la variable en Cloud Run
+const resend = new Resend(process.env.RESEND_API_KEY || 're_missing_key');
 
 /** @type {import('express').Application} */
 const app = express();
