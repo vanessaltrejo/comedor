@@ -8,11 +8,18 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build:css": "tailwindcss -i ./src/css/input.css -o ./public/css/styles.css --minify",
+    "watch:css": "tailwindcss -i ./src/css/input.css -o ./public/css/styles.css --watch",
+    "optimize": "node scripts/optimize-images.js"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
     "ejs": "^5.0.2",
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.1",
+    "tailwindcss": "^3.4.19"
   }
 }

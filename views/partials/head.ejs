@@ -17,118 +17,21 @@
 <meta name="twitter:title" content="<%= typeof title !== 'undefined' ? title : 'Comedor de los Pobres' %>">
 <meta name="twitter:description" content="<%= typeof description !== 'undefined' ? description : 'Asociación Juan XXIII - Comedor de los Pobres P. Roberto Infante en Nuevo León.' %>">
 <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/imagenes/logomorado.png' %>">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                screens: {
-                    xs: '420px',
-                },
-            },
-        },
-    };
-</script>
+
+<!-- Preconnect: acelera DNS lookup de fuentes e iconos -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+<!--
+    CSS compilado (Tailwind v3 purgeado + estilos globales).
+    Reemplaza el CDN de Tailwind que bloqueaba el main thread al cargar.
+    Para regenerar: npm run build:css
+-->
+<link rel="stylesheet" href="/css/styles.css">
+
+<!-- Google Fonts via <link> (evita el serial @import que causaba demoras) -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
-
-    html {
-        scroll-behavior: smooth;
-        overflow-x: clip;
-    }
-
-    :root {
-        --morado: #7c3aed;
-        --amarillo: #fbbf24;
-        --naranja: #f97316;
-    }
-
-    body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        overflow-x: clip;
-    }
-
-    .glass-nav {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(124, 58, 237, 0.1);
-    }
-
-    .nav-link {
-        position: relative;
-        color: #4b5563; /* text-gray-600 */
-        transition: color 0.3s ease;
-    }
-
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: -6px;
-        left: 0;
-        background-color: var(--naranja);
-        border-radius: 9999px;
-        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .nav-link:hover {
-        color: var(--morado);
-    }
-
-    .nav-link:hover::after {
-        width: 100%;
-    }
-
-    .nav-link.active {
-        color: var(--morado) !important;
-        font-weight: 800; /* Extra bold */
-    }
-
-    #mobile-menu-panel {
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .card-hover {
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    }
-
-    .card-hover:hover {
-        transform: translateY(-8px) scale(1.015);
-        border-color: rgba(124, 58, 237, 0.3) !important;
-        box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.25) !important;
-    }
-
-    a, button, .card-hover, .soft-card, .value-tag, input, select, textarea {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @keyframes navbar-slide-down {
-        from {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    .navbar-animate {
-        animation: navbar-slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .scroll-reveal {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        transition-delay: var(--delay, 0ms);
-        will-change: opacity, transform;
-    }
-
-    .scroll-reveal.is-revealed {
-        opacity: 1;
-        transform: translateY(0);
-    }
-</style>

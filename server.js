@@ -17,7 +17,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // ----- Static Middleware -----
-app.use(express.static(path.join(__dirname, 'public')));
+// redirect: false evita que express.static haga un 301 de /informe → /informe/
+// cuando existe la carpeta public/informe/ (que contiene los PDFs).
+app.use(express.static(path.join(__dirname, 'public'), { redirect: false }));
 // NOTE: express.urlencoded will be needed when the contact form backend is implemented.
 // app.use(express.urlencoded({ extended: true }));
 
