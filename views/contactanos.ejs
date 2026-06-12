@@ -98,17 +98,7 @@
                     <div class="contact-card scroll-reveal" style="--delay: 100ms;">
                         <h2 class="text-2xl font-black text-purple-900 mb-8">Envía un mensaje</h2>
                         
-                        <% if (typeof status !== 'undefined' && status === 'success') { %>
-                            <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-6 flex items-center gap-3">
-                                <span>¡Tu mensaje ha sido enviado exitosamente! Nos pondremos en contacto contigo pronto.</span>
-                            </div>
-                        <% } else if (typeof status !== 'undefined' && status === 'error') { %>
-                            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6 flex items-center gap-3">
-                                <span>Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.</span>
-                            </div>
-                        <% } %>
-
-                        <form action="/enviar-contacto" method="POST" class="space-y-6">
+                        <form onsubmit="event.preventDefault()" class="space-y-6">
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="text-[10px] font-black text-gray-400 uppercase block mb-2 ml-1">Nombre Completo</label>
