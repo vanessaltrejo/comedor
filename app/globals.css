@@ -1,0 +1,392 @@
+/*
+ * Punto de entrada CSS para Tailwind v3.
+ * Compilado automáticamente por el pipeline de Next.js.
+ */
+
+/* ----- Directivas Tailwind ----- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----- Variables CSS globales ----- */
+:root {
+    --morado: #7c3aed;
+    --amarillo: #fbbf24;
+    --naranja: #f97316;
+}
+
+/* ----- Hero Visual (compartido por nosotros, contactanos, informe, donar) ----- */
+.hero-visual {
+    background: linear-gradient(135deg, #c27bf8 0%, #946ed6 100%);
+    min-height: 35vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 4rem 4rem;
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.25);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+}
+
+.hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: radial-gradient(#ffffff 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* ----- Base ----- */
+html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: clip;
+    background-color: #ffffff;
+}
+
+/* ----- Glassmorphism Nav ----- */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+}
+
+/* ----- Navigation Links ----- */
+.nav-link {
+    position: relative;
+    color: #4b5563;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -6px;
+    left: 0;
+    background-color: var(--naranja);
+    border-radius: 9999px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover { color: var(--morado); }
+.nav-link:hover::after { width: 100%; }
+
+.nav-link.active {
+    color: var(--morado) !important;
+    font-weight: 800;
+}
+
+#mobile-menu-panel {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ----- Card Hover ----- */
+.card-hover {
+    transition:
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.card-hover:hover {
+    transform: translateY(-8px) scale(1.015);
+    border-color: rgba(124, 58, 237, 0.3) !important;
+    box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.25) !important;
+}
+
+/*
+ * ----- Transiciones globales (FIX: transition:all → propiedades específicas) -----
+ * transition:all fuerza al browser a calcular TODAS las propiedades en cada
+ * frame de animación (incluyendo width, height, layout), causando scroll jank.
+ * Especificamos solo las propiedades que realmente animamos.
+ */
+a,
+button,
+input,
+select,
+textarea,
+.soft-card,
+.value-tag {
+    transition:
+        color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----- Navbar Animation ----- */
+@keyframes navbar-slide-down {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+
+.navbar-animate {
+    animation: navbar-slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ----- Scroll Reveal ----- */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
+    will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ----- Home Page Only ----- */
+.blob {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(249, 115, 22, 0.2) 100%);
+    filter: blur(80px);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+}
+
+/* ----- Home: Announcement Carousel Slide Transitions ----- */
+.slide-3d {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-3d-active {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.slide-3d-right {
+    transform: translateX(100%) scale(0.96);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.slide-3d-left {
+    transform: translateX(-100%) scale(0.96);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ----- Nosotros Page Only ----- */
+.soft-card {
+    background: white;
+    border-radius: 2.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.value-tag {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #475569;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+/* ----- Comedores Page Only ----- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-auto-rows: 240px;
+    gap: 1.5rem;
+}
+
+.gallery-item:nth-child(2) { grid-column: span 2; }
+.gallery-item:nth-child(3) { grid-row: span 2; }
+
+@media (max-width: 768px) {
+    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; }
+    .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+}
+
+.accent-border {
+    border-left: 6px solid var(--naranja);
+}
+
+.tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+}
+
+.tab-btn.active {
+    background-color: white;
+    color: var(--morado);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* ----- Informe Page Only ----- */
+.card-shadow {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+
+.card-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #7c3aed;
+}
+
+.sidebar-item {
+    border-left: 3px solid transparent;
+}
+
+.sidebar-item.active {
+    border-left-color: #f97316;
+    background: #fff7ed;
+    color: #f97316;
+}
+
+/* ----- Donar Page Only ----- */
+.bank-card-premium {
+    background: white;
+    border-radius: 2.5rem;
+    border: 1px solid rgba(124, 58, 237, 0.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
+    transition: all 0.4s ease;
+}
+
+.bank-card-premium:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(124, 58, 237, 0.06);
+}
+
+.copy-badge-premium {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1.25rem;
+    border-radius: 1.25rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.05rem;
+    color: #1e293b;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.copy-badge-premium:hover {
+    border-color: #cbd5e1;
+    background-color: #f1f5f9;
+}
+
+/* Patrón de fondo del hero de Donar: distinto al .hero-pattern compartido (grid de puntos más denso) */
+.donar-hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: radial-gradient(#fff 1px, transparent 0), radial-gradient(#fff 1px, transparent 0);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+}
+
+/* Toast notification */
+.toast-notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #1e293b;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transform: translateY(150%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+}
+
+.toast-notification.show {
+    transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+    .toast-notification {
+        right: 1rem;
+        left: 1rem;
+        bottom: 1rem;
+        justify-content: center;
+    }
+}
+
+/* ----- Contactanos Page Only ----- */
+.input-field {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: #ffffff;
+    border: 2px solid #f1f5f9;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input-field:focus {
+    border-color: var(--morado);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.contact-card {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    border: 1px solid #f1f5f9;
+}
+
+@media (min-width: 640px) {
+    .contact-card {
+        padding: 2.5rem;
+    }
+}

@@ -1,4 +1,21 @@
+# macOS
 .DS_Store
 **/.DS_Store
+
+# Dependencias
 node_modules/
+
+# Variables de entorno
 .env
+.env*.local
+
+# Build de Next.js
+.next/
+out/
+next-env.d.ts
+
+# Artefactos de TypeScript
+*.tsbuildinfo
+
+# Vercel
+.vercel
