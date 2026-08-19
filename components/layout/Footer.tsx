@@ -39,11 +39,14 @@ export function Footer() {
             <br />
             Colonia Pio X, Monterrey, N.L. C.P 64710
           </p>
-          <p className="text-purple-600 font-black text-xl">
-            <a href="tel:8183751163" className="hover:text-purple-700 transition-colors">
-              81 8375 1163
-            </a>
-          </p>
+          <a
+            href="https://wa.me/528130954567"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 text-white rounded-full font-bold text-sm hover:bg-green-600 transition-colors"
+          >
+            <i className="fab fa-whatsapp text-lg" /> WhatsApp
+          </a>
         </div>
 
         <div className="w-full lg:max-w-[280px] space-y-3 lg:space-y-4">

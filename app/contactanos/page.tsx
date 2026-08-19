@@ -69,8 +69,8 @@ export default function Contactanos() {
                         </div>
                       </div>
                       <div className="flex items-start gap-4 sm:ml-4">
-                        <div className="w-10 h-10 bg-purple-800 rounded-xl flex items-center justify-center shrink-0">
-                          <i className="fab fa-whatsapp text-orange-400 text-lg" />
+                        <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center shrink-0">
+                          <i className="fab fa-whatsapp text-white text-lg" />
                         </div>
                         <div>
                           <span className="text-[10px] font-bold text-purple-300 uppercase block mb-1">
@@ -81,7 +81,7 @@ export default function Contactanos() {
                               href="https://wa.me/528130954567"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="hover:text-orange-400 transition-colors"
+                              className="hover:text-green-400 transition-colors"
                             >
                               81 3095 4567
                             </a>
