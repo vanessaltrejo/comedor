@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { resolveSiteUrl } from "@/lib/siteUrl";
+import { buildOrganizationSchema } from "@/lib/organizationSchema";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -14,23 +17,12 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 const DEFAULT_TITLE = "Comedor de los Pobres";
 const DEFAULT_DESCRIPTION =
   "Asociación Juan XXIII - Comedor de los Pobres P. Roberto Infante en Nuevo León.";
-const DEFAULT_OG_IMAGE = "/imagenes/logomorado.png";
-
-/**
- * URL base para resolver las imágenes de OpenGraph/Twitter a URLs absolutas.
- * Sin esto, al compartir el sitio la vista previa apuntaría a localhost.
- * En Vercel se toma del dominio de producción automáticamente; en local
- * cae a localhost. Para un dominio propio, definir NEXT_PUBLIC_SITE_URL.
- */
-function resolveSiteUrl(): URL {
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return new URL(process.env.NEXT_PUBLIC_SITE_URL);
-  }
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`);
-  }
-  return new URL("http://localhost:3000");
-}
+const DEFAULT_OG_IMAGE = {
+  url: "/imagenes/og-banner.jpg",
+  width: 1200,
+  height: 630,
+  alt: DEFAULT_TITLE,
+};
 
 export const metadata: Metadata = {
   metadataBase: resolveSiteUrl(),
@@ -68,12 +60,21 @@ export default function RootLayout({
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
           rel="stylesheet"
         />
+        <script
+          type="application/ld+json"
+          // Contenido generado por nosotros mismos (no es entrada de usuario), es el
+          // patrón oficial de Next.js para insertar JSON-LD.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationSchema()) }}
+        />
       </head>
       <body className={plusJakartaSans.className} suppressHydrationWarning>
         <Navbar />
         {children}
         <Footer />
       </body>
+      {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+      )}
     </html>
   );
 }

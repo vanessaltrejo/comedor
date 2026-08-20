@@ -101,6 +101,9 @@ export function Footer() {
       <div className="bg-gray-50 py-5 lg:py-8 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4 text-xs font-bold">
           <p>© 2024 Juan XXIII al Servicio de los Pobres A.C.</p>
+          <Link href="/aviso-de-privacidad" className="hover:text-purple-600 transition-colors">
+            Aviso de Privacidad
+          </Link>
         </div>
       </div>
     </footer>
