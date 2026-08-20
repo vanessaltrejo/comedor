@@ -3,8 +3,8 @@ import { getResendClient } from "@/lib/resend";
 import type { ContactFormData } from "@/types/contactForm.types";
 
 // El remitente debe pertenecer al dominio ya verificado en Resend.
-const FROM_ADDRESS = "Comedor de los Pobres <unete@comedordelospobres.org>";
-const TO_ADDRESS = "carlos.lopez@comedordelospobres.org";
+const FROM_ADDRESS = "Comedor de los Pobres <contacto@comedordelospobres.org>";
+const TO_ADDRESS = "unete@comedordelospobres.org";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

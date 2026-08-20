@@ -19,14 +19,20 @@ export default function Nosotros() {
         <div className="absolute top-1/2 -right-12 sm:-right-24 w-48 sm:w-64 h-48 sm:h-64 bg-orange-500/20 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full text-center relative z-10 py-8">
-          <h1 className="text-4xl md:text-5xl font-black mb-6">
+          <h1
+            className="text-4xl md:text-5xl font-black mb-6 scroll-reveal"
+            style={revealDelay(100)}
+          >
             Una{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
               misión
             </span>{" "}
             que nos define
           </h1>
-          <p className="text-lg text-purple-100 max-w-2xl mx-auto leading-relaxed opacity-90">
+          <p
+            className="text-lg text-purple-100 max-w-2xl mx-auto leading-relaxed opacity-90 scroll-reveal"
+            style={revealDelay(200)}
+          >
             Conoce la historia, los valores y el corazón de Juan XXIII al Servicio de los Pobres
             A.C.
           </p>

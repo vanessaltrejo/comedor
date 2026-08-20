@@ -18,9 +18,9 @@ export default function Home() {
         <div className="blob -top-20 -right-20" style={{ background: "rgba(251, 191, 36, 0.15)" }} />
         <div className="blob -bottom-20 -left-20" style={{ background: "rgba(124, 58, 237, 0.15)" }} />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 sm:gap-10 lg:gap-44 items-center">
           {/* Contenido Texto */}
-          <div className="lg:col-span-7 z-10">
+          <div className="z-10">
             <div
               className="inline-flex items-center space-x-2 bg-purple-50 border border-purple-100 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6 max-w-full scroll-reveal"
               style={revealDelay(100)}
@@ -72,7 +72,7 @@ export default function Home() {
           </div>
 
           {/* Imagen / Composición Visual */}
-          <div className="lg:col-span-5 relative max-lg:max-w-md max-lg:mx-auto w-full">
+          <div className="relative max-lg:max-w-md max-lg:mx-auto w-full">
             <div
               className="relative z-10 w-full aspect-[4/5] max-h-[min(55vh,420px)] sm:max-h-none rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-2xl rotate-2 sm:rotate-3 hover:rotate-0 transition-transform duration-500 border-4 sm:border-8 border-white scroll-reveal"
               style={revealDelay(300)}
@@ -167,7 +167,7 @@ export default function Home() {
       {/* SECCIÓN DE CAMPAÑAS Y VIDEOS */}
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-reveal" style={revealDelay(100)}>
             <h2 className="text-4xl font-black text-purple-900 italic">Acciones que Dejan Huella</h2>
             <div className="w-24 h-1.5 bg-yellow-400 mx-auto mt-4 rounded-full" />
           </div>

@@ -132,10 +132,10 @@ export function AnnouncementCarousel() {
         <div className="relative z-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
           <div className="lg:col-span-5 order-2 lg:order-1 flex justify-center">
             <Image
-              src="/imagenes/informeactividades.webp"
+              src="/imagenes/informeactividades.jpg"
               alt="Reporte"
-              width={900}
-              height={562}
+              width={1536}
+              height={1024}
               loading="lazy"
               className="w-full max-h-[160px] sm:max-h-[200px] lg:max-h-[250px] object-cover rounded-[2rem] shadow-xl rotate-1 hover:rotate-0 transition duration-500"
             />

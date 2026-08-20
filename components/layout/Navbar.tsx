@@ -21,7 +21,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="glass-nav sticky top-0 w-full z-[110] transition-all duration-300 navbar-animate">
+      <nav className="glass-nav sticky top-0 w-full z-[110] transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center gap-3">
           <Link href="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-lg">

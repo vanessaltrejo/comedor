@@ -118,7 +118,7 @@ export function ComedorPanel({ comedor }: ComedorPanelProps) {
 
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center justify-between mb-12 scroll-reveal" style={revealDelay(100)}>
             <h2 className="text-4xl font-black text-purple-900">Galería {comedor.shortName}</h2>
             <div className="h-1 flex-grow mx-8 bg-gray-200 rounded-full hidden md:block" />
           </div>

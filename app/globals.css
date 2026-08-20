@@ -122,16 +122,6 @@ textarea,
         opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ----- Navbar Animation ----- */
-@keyframes navbar-slide-down {
-    from { transform: translateY(-100%); opacity: 0; }
-    to   { transform: translateY(0);     opacity: 1; }
-}
-
-.navbar-animate {
-    animation: navbar-slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
 /* ----- Scroll Reveal ----- */
 .scroll-reveal {
     opacity: 0;
@@ -146,6 +136,21 @@ textarea,
 .scroll-reveal.is-revealed {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ----- Reduced Motion ----- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .scroll-reveal {
+        transform: none;
+    }
 }
 
 /* ----- Home Page Only ----- */

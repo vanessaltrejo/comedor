@@ -8,7 +8,7 @@ export function Footer() {
   useScrollReveal();
 
   return (
-    <footer className="bg-white border-t border-gray-100 pt-10 lg:pt-20 scroll-reveal">
+    <footer className="bg-white border-t border-gray-100 pt-10 lg:pt-20">
       <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-0 pb-10 lg:pb-16">
         <div className="w-full lg:max-w-[280px]">
           <Link href="/" className="flex items-center space-x-3 mb-4 lg:mb-6">

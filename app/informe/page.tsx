@@ -147,22 +147,24 @@ export default function Informe() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-bold text-purple-900 mb-6">Nuestros Comedores</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                {INFORME_COMEDORES.map((comedor) => (
-                  <div
-                    key={comedor.name}
-                    className="bg-white p-6 rounded-3xl border border-gray-100 card-shadow"
-                  >
-                    <div className="flex items-start gap-4">
-                      <i className="fas fa-map-marker-alt text-2xl text-orange-500 mt-1" aria-hidden="true" />
-                      <div>
-                        <h4 className="font-bold text-gray-900 text-lg">{comedor.name}</h4>
-                        <p className="text-sm text-gray-500 mt-1">{comedor.address}</p>
+              <div className="scroll-reveal" style={revealDelay(300)}>
+                <h3 className="text-xl font-bold text-purple-900 mb-6">Nuestros Comedores</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {INFORME_COMEDORES.map((comedor) => (
+                    <div
+                      key={comedor.name}
+                      className="bg-white p-6 rounded-3xl border border-gray-100 card-shadow"
+                    >
+                      <div className="flex items-start gap-4">
+                        <i className="fas fa-map-marker-alt text-2xl text-orange-500 mt-1" aria-hidden="true" />
+                        <div>
+                          <h4 className="font-bold text-gray-900 text-lg">{comedor.name}</h4>
+                          <p className="text-sm text-gray-500 mt-1">{comedor.address}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </InformeSection>
 
@@ -337,7 +339,7 @@ export default function Informe() {
                 </div>
               </div>
 
-              <div className="max-w-3xl mx-auto mb-8">
+              <div className="max-w-3xl mx-auto mb-8 scroll-reveal" style={revealDelay(300)}>
                 <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 card-shadow">
                   <h4 className="font-black text-gray-400 text-[10px] uppercase tracking-widest mb-6">
                     Origen de Recursos Movilizados
@@ -363,7 +365,10 @@ export default function Informe() {
                 </div>
               </div>
 
-              <div className="bg-purple-50/50 p-10 rounded-[2.5rem] border border-purple-100/50">
+              <div
+                className="bg-purple-50/50 p-10 rounded-[2.5rem] border border-purple-100/50 scroll-reveal"
+                style={revealDelay(400)}
+              >
                 <h4 className="text-purple-900 font-black mb-10 text-center">
                   Agradecemos profundamente el apoyo de:
                 </h4>
@@ -418,7 +423,10 @@ export default function Informe() {
                 </div>
               </div>
 
-              <div className="bg-gray-100 p-12 lg:p-16 rounded-[3rem] text-center relative overflow-hidden">
+              <div
+                className="bg-gray-100 p-12 lg:p-16 rounded-[3rem] text-center relative overflow-hidden scroll-reveal"
+                style={revealDelay(300)}
+              >
                 <div className="absolute inset-0 z-0 bg-gradient-to-br from-purple-100/50 to-orange-50/50" />
                 <div className="relative z-10">
                   <h2 className="text-xl md:text-2xl font-black text-purple-900 mb-6 leading-tight">
