@@ -1,10 +1,20 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { resolveSiteUrl } from "@/lib/siteUrl";
-import { buildOrganizationSchema } from "@/lib/organizationSchema";
+import { buildStructuredData, serializeJsonLd } from "@/lib/organizationSchema";
+import {
+  BRAND_COLOR,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_SOCIAL_IMAGE,
+  DEFAULT_TITLE,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_VIEWPORT,
+  isIndexingAllowed,
+} from "@/lib/seo";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -14,34 +24,52 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const DEFAULT_TITLE = "Comedor de los Pobres";
-const DEFAULT_DESCRIPTION =
-  "Asociación Juan XXIII - Comedor de los Pobres P. Roberto Infante en Nuevo León.";
-const DEFAULT_OG_IMAGE = {
-  url: "/imagenes/og-banner.jpg",
-  width: 1200,
-  height: 630,
-  alt: DEFAULT_TITLE,
-};
+export const viewport: Viewport = SITE_VIEWPORT;
 
 export const metadata: Metadata = {
   metadataBase: resolveSiteUrl(),
-  title: DEFAULT_TITLE,
+  applicationName: SITE_NAME,
+  title: { default: DEFAULT_TITLE, template: `%s | ${SITE_NAME}` },
   description: DEFAULT_DESCRIPTION,
+  robots: isIndexingAllowed()
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+      }
+    : { index: false, follow: false },
   icons: {
     icon: "/imagenes/logomorado.png",
+    apple: "/imagenes/logomorado.png",
+  },
+  appleWebApp: {
+    capable: true,
+    title: SITE_NAME,
+    statusBarStyle: "default",
+  },
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "msapplication-TileColor": BRAND_COLOR,
   },
   openGraph: {
     type: "website",
+    siteName: SITE_NAME,
+    locale: SITE_LOCALE,
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
-    images: [DEFAULT_OG_IMAGE],
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
-    images: [DEFAULT_OG_IMAGE],
+    images: [{ url: DEFAULT_SOCIAL_IMAGE.url, alt: DEFAULT_SOCIAL_IMAGE.alt }],
   },
 };
 
@@ -51,7 +79,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" data-scroll-behavior="smooth">
       <head>
         {/* Preconnect: acelera DNS lookup de iconos (fuente ya autohospedada por next/font) */}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
@@ -62,9 +90,7 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          // Contenido generado por nosotros mismos (no es entrada de usuario), es el
-          // patrón oficial de Next.js para insertar JSON-LD.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationSchema()) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildStructuredData()) }}
         />
       </head>
       <body className={plusJakartaSans.className} suppressHydrationWarning>

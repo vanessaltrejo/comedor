@@ -43,8 +43,8 @@ export function MobileMenu({ isOpen, onClose, navLinks }: MobileMenuProps) {
                 onClick={onClose}
                 className={`mobile-nav-link py-3 px-4 rounded-xl text-sm font-bold ${
                   isActive
-                    ? "text-purple-600 bg-purple-50 border-l-4 border-orange-500"
-                    : "text-gray-700 hover:bg-purple-50 hover:text-purple-600"
+                    ? "text-brand bg-purple-50 border-l-4 border-orange-500"
+                    : "text-gray-700 hover:bg-purple-50 hover:text-brand"
                 }`}
               >
                 {link.label}
@@ -54,9 +54,9 @@ export function MobileMenu({ isOpen, onClose, navLinks }: MobileMenuProps) {
           <Link
             href="/donar"
             onClick={onClose}
-            className="mt-4 mx-1 block py-3.5 text-center bg-orange-500 text-white rounded-2xl font-black text-sm hover:bg-orange-600 transition shadow-lg shadow-orange-200"
+            className="mt-4 mx-1 block py-3.5 text-center bg-orange-500 text-white rounded-lg font-black text-sm hover:bg-orange-600 transition shadow-lg shadow-orange-200"
           >
-            DONAR
+            Donar
           </Link>
         </nav>
       </div>

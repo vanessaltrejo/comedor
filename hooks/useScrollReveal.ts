@@ -25,8 +25,9 @@ export function useScrollReveal(): void {
       },
       {
         root: null,
-        rootMargin: "0px 0px -10% 0px",
-        threshold: 0.1,
+        // Trigger slightly after the element enters the viewport.
+        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.15,
       }
     );
 

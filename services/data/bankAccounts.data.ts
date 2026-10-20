@@ -12,7 +12,7 @@ export const BANBAJIO_ACCOUNT: BankAccount = {
 };
 
 export const AFIRME_ACCOUNT: BankAccount = {
-  bankName: "AFIRME",
+  bankName: "Afirme",
   account: { display: "101-118-754", raw: "101118754" },
   clabe: { display: "062 580 0010 1118 7547", raw: "062580001011187547" },
 };

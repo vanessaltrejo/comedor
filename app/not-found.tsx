@@ -2,19 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Página no encontrada - Comedor de los Pobres",
+  title: "Página no encontrada",
+  robots: { index: false, follow: false },
 };
 
 export default function NotFound() {
   return (
     <main className="min-h-[60vh] flex items-center justify-center px-4 sm:px-6 py-20">
       <div className="max-w-xl text-center">
-        <span className="text-orange-500 font-black text-[10px] uppercase tracking-widest mb-4 block">
+        <span className="text-orange-500 font-black text-sm tracking-wide mb-4 block">
           Error 404
         </span>
-        <h1 className="text-4xl md:text-5xl font-black text-purple-900 mb-6">
+        <h1 className="text-4xl md:text-5xl font-black text-brand mb-6">
           Esta página no{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-orange-500 to-yellow-500">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand via-orange-500 to-yellow-500">
             existe
           </span>
         </h1>
@@ -25,13 +26,13 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
             href="/"
-            className="px-8 py-4 bg-purple-600 text-white rounded-full font-black text-sm hover:bg-purple-700 transition shadow-lg shadow-purple-200 uppercase tracking-widest"
+            className="px-8 py-4 bg-brand text-white rounded-lg font-black text-sm hover:bg-brand-dark transition shadow-lg shadow-purple-200 tracking-wide"
           >
             Ir al Inicio
           </Link>
           <Link
             href="/contactanos"
-            className="px-8 py-4 bg-white text-purple-600 rounded-full border border-purple-200 font-black text-sm hover:bg-purple-50/50 transition uppercase tracking-widest"
+            className="px-8 py-4 bg-white text-brand rounded-lg border border-purple-200 font-black text-sm hover:bg-purple-50/50 transition tracking-wide"
           >
             Contáctanos
           </Link>
