@@ -12,7 +12,7 @@ export function CopyBadge({ displayValue, onCopy }: CopyBadgeProps) {
       <button
         type="button"
         onClick={onCopy}
-        className="text-purple-500 hover:text-purple-700 ml-2 focus:outline-none"
+        className="text-brand-light hover:text-brand-dark ml-2 focus:outline-none"
         title="Copiar sin espacios"
       >
         <i className="far fa-copy" />

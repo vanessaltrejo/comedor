@@ -7,8 +7,8 @@ interface InformeSectionProps {
   title: string;
   /** Clase de Font Awesome del icono, p. ej. "fa-users". */
   icon: string;
-  /** Clases Tailwind de fondo y color para la caja del icono. */
-  iconClasses: string;
+  /** Clase Tailwind de color de texto del icono, p. ej. "text-brand". */
+  iconColorClass: string;
   children: ReactNode;
 }
 
@@ -17,14 +17,12 @@ interface InformeSectionProps {
  * lateral y el encabezado (icono + título) que el diseño repite en las
  * siete secciones.
  */
-export function InformeSection({ id, title, icon, iconClasses, children }: InformeSectionProps) {
+export function InformeSection({ id, title, icon, iconColorClass, children }: InformeSectionProps) {
   return (
     <section id={id} className="scroll-mt-32">
-      <div className="flex items-center gap-4 mb-6 scroll-reveal" style={revealDelay(100)}>
-        <div className={`w-12 h-12 ${iconClasses} rounded-2xl flex items-center justify-center`}>
-          <i className={`fas ${icon} text-xl`} aria-hidden="true" />
-        </div>
-        <h2 className="text-3xl font-black text-purple-900">{title}</h2>
+      <div className="mb-5 flex items-center gap-3 scroll-reveal" style={revealDelay(100)}>
+        <i className={`pillar-icon fas ${icon} text-3xl ${iconColorClass}`} aria-hidden="true" />
+        <h2 className="text-3xl font-black text-brand">{title}</h2>
       </div>
       {children}
     </section>

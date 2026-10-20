@@ -27,8 +27,8 @@ export function Toast({ title, message, isVisible, variant = "success" }: ToastP
         <i className={`fas ${styles.icon} text-xs`} aria-hidden="true" />
       </div>
       <div>
-        <p className="text-xs font-black text-white uppercase tracking-wider">{title}</p>
-        <p className="text-[11px] text-gray-400 font-medium">{message}</p>
+        <p className="text-sm font-black text-white tracking-wide">{title}</p>
+        <p className="text-sm text-gray-400 font-medium">{message}</p>
       </div>
     </div>
   );

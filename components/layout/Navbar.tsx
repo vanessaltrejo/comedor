@@ -8,11 +8,11 @@ import { useMobileMenu } from "@/hooks/useMobileMenu";
 import type { NavLink } from "@/types/navigation.types";
 
 const NAV_LINKS: NavLink[] = [
-  { href: "/", label: "INICIO" },
-  { href: "/nosotros", label: "NOSOTROS" },
-  { href: "/comedores", label: "COMEDORES" },
-  { href: "/informe", label: "INFORME" },
-  { href: "/contactanos", label: "CONTÁCTANOS" },
+  { href: "/", label: "Inicio" },
+  { href: "/nosotros", label: "Nosotros" },
+  { href: "/comedores", label: "Comedores" },
+  { href: "/informe", label: "Informe" },
+  { href: "/contactanos", label: "Contáctanos" },
 ];
 
 export function Navbar() {
@@ -21,24 +21,25 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="glass-nav sticky top-0 w-full z-[110] transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center gap-3">
+      <nav className="navbar-brand-bg fixed inset-x-0 top-0 z-[110]">
+        <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-10 py-3 sm:py-4 flex justify-between items-center gap-3">
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 overflow-hidden flex items-center justify-center">
               <Image
-                src="/imagenes/logomorado.png"
+                src="/imagenes/logomorado-navbar.png"
                 alt="Logo"
                 width={40}
                 height={40}
                 priority
+                unoptimized
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-black text-xl text-purple-900 tracking-tighter">
-                JUAN XXIII
+              <span className="font-black text-[19px] text-white">
+                Juan XXIII
               </span>
-              <span className="text-[10px] text-orange-500 font-bold uppercase tracking-widest">
+              <span className="text-[10px] text-orange-300 font-bold tracking-wide">
                 Comedor de los Pobres
               </span>
             </div>
@@ -56,16 +57,16 @@ export function Navbar() {
             ))}
             <Link
               href="/donar"
-              className="px-6 py-2.5 bg-orange-500 text-white rounded-full font-black text-sm hover:bg-orange-600 transition shadow-lg shadow-orange-200 cursor-pointer inline-flex items-center active:scale-95 duration-200"
+              className="px-6 py-2.5 bg-orange-500 text-white rounded-lg font-black text-sm hover:bg-orange-600 transition cursor-pointer inline-flex items-center active:scale-95 duration-200"
             >
-              DONAR
+              Donar
             </Link>
           </div>
 
           <button
             type="button"
             onClick={toggle}
-            className="lg:hidden relative z-[120] p-2 -mr-2 rounded-xl text-purple-900 hover:bg-purple-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+            className="lg:hidden relative z-[120] p-2 -mr-2 rounded-xl text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
@@ -78,6 +79,7 @@ export function Navbar() {
           </button>
         </div>
       </nav>
+      <div aria-hidden="true" className="h-[67px] sm:h-[73px]" />
 
       <MobileMenu isOpen={isOpen} onClose={close} navLinks={NAV_LINKS} />
     </>

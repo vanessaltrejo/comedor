@@ -23,33 +23,38 @@ export function InformeSidebar() {
   const activeId = useScrollSpy(INFORME_SECTION_IDS);
 
   return (
-    <aside className="hidden lg:block lg:col-span-3 sticky top-32 self-start">
-      <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-        <h3 className="text-purple-900 font-black text-xs uppercase tracking-widest mb-6 pl-4">
-          Contenido
-        </h3>
-        <nav className="flex flex-col space-y-1" aria-label="Índice del informe">
-          {SIDEBAR_LINKS.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              aria-current={link.id === activeId ? "true" : undefined}
-              className={`sidebar-item p-4 text-sm font-bold rounded-xl flex items-center gap-3 ${
-                link.id === activeId ? "active" : "hover:bg-gray-50"
-              }`}
-            >
-              <i className={`fas ${link.icon} w-5`} aria-hidden="true" /> {link.label}
-            </a>
-          ))}
-          <div className="pt-4 mt-2 border-t border-gray-100">
-            <a
-              href="/informe/Informe 2025.pdf"
-              download="Informe-Anual-2025.pdf"
-              className="flex items-center justify-center w-full px-4 py-3 bg-purple-600 text-white rounded-xl font-bold text-sm hover:bg-purple-700 transition shadow-md shadow-purple-200"
-            >
-              <i className="fas fa-download mr-2" aria-hidden="true" /> Descargar Reporte
-            </a>
-          </div>
+    <aside className="hidden lg:block lg:col-span-3 sticky top-28 self-start">
+      <div className="rounded-2xl border border-gray-200 bg-gray-100 p-4 shadow-xl">
+        <h3 className="mb-3 pl-3 text-sm font-black text-brand">Contenido</h3>
+        <nav className="flex flex-col gap-1" aria-label="Índice del informe">
+          {SIDEBAR_LINKS.map((link) => {
+            const isActive = link.id === activeId;
+            return (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                aria-current={isActive ? "true" : undefined}
+                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold transition-colors ${
+                  isActive
+                    ? "bg-white text-brand shadow-sm ring-1 ring-purple-100"
+                    : "text-gray-600 hover:bg-white/70 hover:text-brand"
+                }`}
+              >
+                <i
+                  className={`fas ${link.icon} w-5 text-center ${isActive ? "text-orange-500" : "text-gray-400"}`}
+                  aria-hidden="true"
+                />
+                {link.label}
+              </a>
+            );
+          })}
+          <a
+            href="/informe/Informe 2025.pdf"
+            download="Informe-Anual-2025.pdf"
+            className="mt-3 flex w-full items-center justify-center rounded-lg bg-brand px-4 py-3 text-sm font-bold text-white shadow-md shadow-purple-200 transition hover:bg-brand-dark"
+          >
+            <i className="fas fa-download mr-2" aria-hidden="true" /> Descargar Reporte
+          </a>
         </nav>
       </div>
     </aside>

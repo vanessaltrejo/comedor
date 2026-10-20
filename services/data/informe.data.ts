@@ -4,6 +4,8 @@
  * para que actualizar el informe del año siguiente no implique tocar JSX.
  */
 
+import type { CardTone } from "@/types/cardTone.types";
+
 export interface ComedorAddress {
   name: string;
   address: string;
@@ -44,7 +46,7 @@ export const INFORME_DEMOGRAPHICS: DemographicBand[] = [
 
 export interface InformeEvent {
   icon: string;
-  iconClasses: string;
+  tone: CardTone;
   title: string;
   description: string;
   tag: string;
@@ -53,7 +55,7 @@ export interface InformeEvent {
 export const INFORME_EVENTS: InformeEvent[] = [
   {
     icon: "fa-ticket-alt",
-    iconClasses: "bg-yellow-100 text-yellow-600",
+    tone: "yellow",
     title: "Loterías Benéficas",
     description:
       '"Chalupa y Buenas" - En cada plato que servimos hay una historia de lucha y esperanza. Realizadas exitosamente en Abril y Octubre.',
@@ -61,7 +63,7 @@ export const INFORME_EVENTS: InformeEvent[] = [
   },
   {
     icon: "fa-running",
-    iconClasses: "bg-orange-100 text-orange-600",
+    tone: "orange",
     title: "Carrera Corre y Alimenta",
     description:
       "Salida en Parque Fundidora. Formato de 5K y 10K. Patrocinado por: Power, Krono, Fafl, Frisa. Un evento para toda la familia.",
@@ -69,7 +71,7 @@ export const INFORME_EVENTS: InformeEvent[] = [
   },
   {
     icon: "fa-birthday-cake",
-    iconClasses: "bg-pink-100 text-pink-600",
+    tone: "pink",
     title: "Festividades Comunitarias",
     description:
       'Celebración del Día de las Madres "Felicidades Mamás", Día del Niño (con pastel y bolsitas), Posadas Navideñas y Huellas de Solidaridad.',
@@ -77,7 +79,7 @@ export const INFORME_EVENTS: InformeEvent[] = [
   },
   {
     icon: "fa-hands-helping",
-    iconClasses: "bg-blue-100 text-blue-600",
+    tone: "blue",
     title: "Campañas y Servicio",
     description:
       'Participaciones como "Clamor en el Barrio" y alianzas como la Semana con Sentido Humano y Servicio Social del Tec de Monterrey.',
@@ -134,7 +136,7 @@ export const INFORME_EXPENSES: ExpenseLine[] = [
     label: "Gastos de Operación",
     percentageLabel: "73.0%",
     barWidth: "73%",
-    barClass: "bg-purple-600",
+    barClass: "bg-brand",
   },
   {
     label: "Sueldos y Salarios",

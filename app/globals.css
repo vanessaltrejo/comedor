@@ -10,30 +10,165 @@
 
 /* ----- Variables CSS globales ----- */
 :root {
-    --morado: #7c3aed;
+    /* Brand purple: single source of truth (space-separated RGB channels). */
+    --brand-rgb: 89 43 151;
+    --brand-light-rgb: 109 52 183;
+    --brand-dark-rgb: 68 33 115;
+    --brand: rgb(var(--brand-rgb));
+    --card-accent: var(--brand-rgb);
+    --morado: var(--brand);
     --amarillo: #fbbf24;
     --naranja: #f97316;
 }
 
-/* ----- Hero Visual (compartido por nosotros, contactanos, informe, donar) ----- */
-.hero-visual {
-    background: linear-gradient(135deg, #c27bf8 0%, #946ed6 100%);
-    min-height: 35vh;
-    display: flex;
-    align-items: center;
+/* ----- Brand surface: gradient + ripples + dots (page hero and closing CTA banner) ----- */
+.page-hero,
+.cta-banner {
     position: relative;
     overflow: hidden;
-    border-radius: 0 0 4rem 4rem;
-    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.25);
-    border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+    color: #ffffff;
+    background:
+        radial-gradient(ellipse 36% 110% at 97% -15%, rgb(255 255 255 / 0.18), transparent 70%),
+        linear-gradient(115deg, rgb(var(--brand-dark-rgb)) 0%, rgb(var(--brand-rgb)) 48%, rgb(var(--brand-light-rgb)) 100%);
 }
 
-.hero-pattern {
+.page-hero {
+    /* Soft arc on the bottom edge. */
+    border-radius: 0 0 50% 50% / 0 0 2rem 2rem;
+    box-shadow: 0 14px 28px -14px rgb(var(--brand-rgb) / 0.55);
+}
+
+.cta-banner {
+    border-radius: 1.25rem;
+    box-shadow: 0 18px 32px -16px rgb(var(--brand-rgb) / 0.6);
+}
+
+/* Faint ripples fading out towards the left (page hero only). */
+.page-hero::before {
+    content: '';
     position: absolute;
     inset: 0;
-    opacity: 0.1;
+    background: repeating-radial-gradient(
+        circle at 94% 10%,
+        rgb(255 255 255 / 0.12) 0 1px,
+        transparent 1px 26px
+    );
+    -webkit-mask-image: linear-gradient(to left, #000 0%, transparent 55%);
+    mask-image: linear-gradient(to left, #000 0%, transparent 55%);
+    pointer-events: none;
+}
+
+/* Fine dot texture. */
+.page-hero::after,
+.cta-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
     background-image: radial-gradient(#ffffff 1px, transparent 1px);
-    background-size: 30px 30px;
+    background-size: 28px 28px;
+    pointer-events: none;
+}
+
+/* ----- Home hero decoration: faint dot texture + animated ripples (see HeroRipples) ----- */
+.hero-decor::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgb(var(--brand-rgb) / 0.16) 1px, transparent 1px);
+    background-size: 28px 28px;
+    /* Fade out at the bottom so the hero melts into the white section below. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+    pointer-events: none;
+}
+
+.hero-ripples {
+    --ripple-x: 50%;
+    --ripple-y: 74%;
+    --ripple-size: 780px;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+    .hero-ripples {
+        --ripple-x: 75%;
+        --ripple-y: 48%;
+        --ripple-size: 1300px;
+    }
+}
+
+/* Each ring is born as a tiny circle and expands outwards while fading in and out. */
+.hero-ripples span {
+    position: absolute;
+    left: var(--ripple-x);
+    top: var(--ripple-y);
+    width: var(--ripple-size);
+    height: var(--ripple-size);
+    margin-left: calc(var(--ripple-size) / -2);
+    margin-top: calc(var(--ripple-size) / -2);
+    border-radius: 50%;
+    border: 1.5px solid rgb(var(--brand-rgb) / 0.3);
+    box-shadow: inset 0 0 48px rgb(var(--brand-rgb) / 0.07);
+    opacity: 0;
+    transform: scale(0.03);
+    animation: hero-ripple-expand 10s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
+@keyframes hero-ripple-expand {
+    0% { transform: scale(0.03); opacity: 0; }
+    10% { opacity: 0.9; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+/* Hero photos start piled up in the centre and fan out to their final spot (individual
+   properties; the photos have no other transform). */
+.hero-photo-expand {
+    position: relative;
+    z-index: var(--stack-z, 1);
+    rotate: var(--rest-rot, 0deg);
+    animation: hero-photo-expand 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--enter-delay, 0s);
+}
+
+/* Hidden and paused until HeroCollage flags data-ready (all photos loaded). */
+.hero-collage[data-ready="false"] .hero-photo-expand {
+    visibility: hidden;
+    animation-play-state: paused;
+}
+
+/* No JavaScript: nothing would ever flag the collage as ready, so show it right away. */
+@media (scripting: none) {
+    .hero-collage[data-ready="false"] .hero-photo-expand {
+        visibility: visible;
+        animation-play-state: running;
+    }
+}
+
+@keyframes hero-photo-expand {
+    from {
+        translate: var(--from-x, 0%) var(--from-y, 0%);
+        scale: 0.8;
+        rotate: var(--from-rot, 0deg);
+    }
+    to {
+        translate: 0% 0%;
+        scale: 1;
+        rotate: var(--rest-rot, 0deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-ripples span {
+        animation: none !important;
+        opacity: 0.45;
+        transform: scale(var(--static-scale, 1));
+    }
 }
 
 /* ----- Base ----- */
@@ -44,21 +179,22 @@ html {
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem; /* 14px: standard body size for the whole site */
     overflow-x: clip;
     background-color: #ffffff;
 }
 
-/* ----- Glassmorphism Nav ----- */
-.glass-nav {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+/* ----- Navbar (morado del logo) ----- */
+.navbar-brand-bg {
+    background: var(--brand);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgb(var(--brand-rgb) / 0.25);
 }
 
 /* ----- Navigation Links ----- */
 .nav-link {
     position: relative;
-    color: #4b5563;
+    color: rgba(255, 255, 255, 0.85);
     transition: color 0.3s ease;
 }
 
@@ -74,13 +210,15 @@ body {
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.nav-link:hover { color: var(--morado); }
+.nav-link:hover { color: #ffffff; }
 .nav-link:hover::after { width: 100%; }
 
 .nav-link.active {
-    color: var(--morado) !important;
+    color: #ffffff !important;
     font-weight: 800;
 }
+
+.nav-link.active::after { width: 100%; }
 
 #mobile-menu-panel {
     -webkit-overflow-scrolling: touch;
@@ -94,10 +232,36 @@ body {
         border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
+/* Hover accent as an RGB triplet; defaults to purple, override per card with a modifier. */
+.card-hover {
+    --card-accent: var(--brand-rgb);
+}
+
+.card-accent-orange { --card-accent: 249 115 22; }
+.card-accent-yellow { --card-accent: 250 204 21; }
+.card-accent-pink { --card-accent: 236 72 153; }
+.card-accent-blue { --card-accent: 59 130 246; }
+.card-accent-green { --card-accent: 34 197 94; }
+
+/* Home pillars: soft 3D card (inner highlight + coloured depth shadow) tinted by --card-accent. */
+.pillar-card {
+    border: 1px solid rgb(var(--card-accent) / 0.18);
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.85),
+        inset 0 -3px 0 rgb(var(--card-accent) / 0.08),
+        0 2px 4px rgb(var(--card-accent) / 0.12),
+        0 18px 30px -12px rgb(var(--card-accent) / 0.35);
+}
+
+/* Standalone icon glyph with a coloured drop shadow. */
+.pillar-icon {
+    filter: drop-shadow(0 4px 3px rgb(var(--card-accent) / 0.4));
+}
+
 .card-hover:hover {
-    transform: translateY(-8px) scale(1.015);
-    border-color: rgba(124, 58, 237, 0.3) !important;
-    box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.25) !important;
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgb(var(--card-accent) / 0.3) !important;
+    box-shadow: 0 25px 50px -12px rgb(var(--card-accent) / 0.25) !important;
 }
 
 /*
@@ -111,7 +275,6 @@ button,
 input,
 select,
 textarea,
-.soft-card,
 .value-tag {
     transition:
         color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -122,20 +285,34 @@ textarea,
         opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ----- Scroll Reveal ----- */
+/* ----- Scroll Reveal -----
+ * Hidden until useScrollReveal adds .is-revealed, then rises, un-blurs and settles.
+ * Animates the individual translate/scale/filter properties so it does not
+ * interfere with hover transforms or the .card-hover transitions. */
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition:
-        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--delay, 0ms);
-    will-change: opacity, transform;
 }
 
 .scroll-reveal.is-revealed {
     opacity: 1;
-    transform: translateY(0);
+    animation: scroll-reveal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    /* Inline stagger delays are scaled to match the duration. */
+    animation-delay: calc(var(--delay, 0ms) * 0.67);
+}
+
+@keyframes scroll-reveal-in {
+    from {
+        opacity: 0;
+        translate: 0 40px;
+        scale: 0.985;
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+        filter: blur(0);
+    }
 }
 
 /* ----- Reduced Motion ----- */
@@ -148,93 +325,46 @@ textarea,
         transition-duration: 0.01ms !important;
     }
 
-    .scroll-reveal {
-        transform: none;
+    .scroll-reveal,
+    .scroll-reveal.is-revealed {
+        opacity: 1;
+        animation: none !important;
+    }
+
+    .card-hover:hover {
+        transform: none !important;
     }
 }
 
 /* ----- Home Page Only ----- */
-.blob {
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(249, 115, 22, 0.2) 100%);
-    filter: blur(80px);
-    border-radius: 50%;
-    z-index: -1;
-}
-
 .btn-glow:hover {
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
 }
 
-/* ----- Home: Announcement Carousel Slide Transitions ----- */
-.slide-3d {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slide-3d-active {
-    transform: translateX(0) scale(1);
-    opacity: 1;
-    z-index: 10;
-    pointer-events: auto;
-}
-
-.slide-3d-right {
-    transform: translateX(100%) scale(0.96);
-    opacity: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.slide-3d-left {
-    transform: translateX(-100%) scale(0.96);
-    opacity: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
 /* ----- Nosotros Page Only ----- */
-.soft-card {
-    background: white;
-    border-radius: 2.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-}
-
 .value-tag {
-    background: white;
-    padding: 1rem 1.5rem;
-    border-radius: 1.2rem;
+    background: #f3f4f6;
+    padding: 1.125rem 1.5rem;
+    border-radius: 1rem;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: #475569;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    gap: 0.875rem;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--brand);
+    box-shadow: 0 8px 16px -10px rgb(var(--brand-rgb) / 0.35);
+    border: 1px solid #e5e7eb;
+}
+
+/* Icons rendered as standalone glyphs with a soft brand drop shadow. */
+.value-tag i {
+    width: 1.75rem; /* same width for every icon so the labels line up */
+    text-align: center;
+    font-size: 1.5rem;
+    filter: drop-shadow(0 3px 2px rgb(var(--brand-rgb) / 0.3));
 }
 
 /* ----- Comedores Page Only ----- */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    grid-auto-rows: 240px;
-    gap: 1.5rem;
-}
-
-.gallery-item:nth-child(2) { grid-column: span 2; }
-.gallery-item:nth-child(3) { grid-row: span 2; }
-
-@media (max-width: 768px) {
-    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; }
-    .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
-}
-
 .accent-border {
     border-left: 6px solid var(--naranja);
 }
@@ -257,16 +387,6 @@ textarea,
 }
 
 /* ----- Informe Page Only ----- */
-.card-shadow {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
-}
-
-.card-shadow:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-}
-
 .progress-bar {
     height: 8px;
     background: #e2e8f0;
@@ -276,43 +396,20 @@ textarea,
 
 .progress-fill {
     height: 100%;
-    background: #7c3aed;
-}
-
-.sidebar-item {
-    border-left: 3px solid transparent;
-}
-
-.sidebar-item.active {
-    border-left-color: #f97316;
-    background: #fff7ed;
-    color: #f97316;
+    border-radius: inherit;
 }
 
 /* ----- Donar Page Only ----- */
-.bank-card-premium {
-    background: white;
-    border-radius: 2.5rem;
-    border: 1px solid rgba(124, 58, 237, 0.05);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
-    transition: all 0.4s ease;
-}
-
-.bank-card-premium:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 25px 50px rgba(124, 58, 237, 0.06);
-}
-
 .copy-badge-premium {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    border: 1px solid rgb(0 0 0 / 0.08);
     padding: 0.75rem 1.25rem;
-    border-radius: 1.25rem;
+    border-radius: 9999px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.0625rem;
     color: #1e293b;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -320,18 +417,8 @@ textarea,
 }
 
 .copy-badge-premium:hover {
-    border-color: #cbd5e1;
-    background-color: #f1f5f9;
-}
-
-/* Patrón de fondo del hero de Donar: distinto al .hero-pattern compartido (grid de puntos más denso) */
-.donar-hero-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.1;
-    background-image: radial-gradient(#fff 1px, transparent 0), radial-gradient(#fff 1px, transparent 0);
-    background-size: 24px 24px;
-    background-position: 0 0, 12px 12px;
+    border-color: rgb(var(--brand-rgb) / 0.3);
+    background-color: #fdfcff;
 }
 
 /* Toast notification */
@@ -368,10 +455,11 @@ textarea,
 /* ----- Contactanos Page Only ----- */
 .input-field {
     width: 100%;
-    padding: 1rem 1.5rem;
+    font-size: 1rem; /* keep 16px so iOS does not zoom on focus */
+    padding: 0.75rem 1rem;
     background: #ffffff;
-    border: 2px solid #f1f5f9;
-    border-radius: 1rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.75rem;
     transition: all 0.3s ease;
     outline: none;
     box-sizing: border-box;
@@ -379,19 +467,6 @@ textarea,
 
 .input-field:focus {
     border-color: var(--morado);
-    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    box-shadow: 0 0 0 4px rgb(var(--brand-rgb) / 0.1);
 }
 
-.contact-card {
-    background: #f9fafb;
-    padding: 1.5rem;
-    border-radius: 2.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-    border: 1px solid #f1f5f9;
-}
-
-@media (min-width: 640px) {
-    .contact-card {
-        padding: 2.5rem;
-    }
-}

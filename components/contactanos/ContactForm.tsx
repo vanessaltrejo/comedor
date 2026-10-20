@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/useToast";
 import { revealDelay } from "@/lib/scrollRevealStyle";
 import type { ContactFormData } from "@/types/contactForm.types";
 
-const LABEL_CLASSES = "text-[10px] font-black text-gray-400 uppercase block mb-2 ml-1";
+const LABEL_CLASSES = "mb-1.5 ml-1 block text-sm font-black text-gray-500";
 
 function readFormData(form: HTMLFormElement): ContactFormData {
   const formData = new FormData(form);
@@ -55,11 +55,17 @@ export function ContactForm() {
 
   return (
     <>
-      <div className="contact-card scroll-reveal" style={revealDelay(100)}>
-        <h2 className="text-2xl font-black text-purple-900 mb-8">Envía un mensaje</h2>
+      <div
+        className="flex h-full flex-col rounded-2xl border border-gray-200 bg-gray-100 p-6 shadow-xl md:p-8 scroll-reveal"
+        style={revealDelay(100)}
+      >
+        <h2 className="mb-5 flex items-center gap-3 text-2xl font-black text-brand">
+          <i className="pillar-icon fas fa-paper-plane text-3xl text-brand" aria-hidden="true" />
+          Envía un mensaje
+        </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-1 flex-col gap-4">
+          <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label htmlFor="nombre" className={LABEL_CLASSES}>
                 Nombre Completo
@@ -104,24 +110,24 @@ export function ContactForm() {
             />
           </div>
 
-          <div>
+          <div className="flex flex-1 flex-col">
             <label htmlFor="mensaje" className={LABEL_CLASSES}>
               Mensaje
             </label>
             <textarea
               id="mensaje"
               name="mensaje"
-              className="input-field h-40 resize-none"
+              className="input-field min-h-32 flex-1 resize-none"
               placeholder="Escribe aquí tus comentarios..."
               required
             />
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-end gap-6 pt-4">
+          <div className="flex flex-col items-center justify-end md:flex-row">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full md:w-auto px-10 py-4 bg-purple-600 text-white rounded-full font-black text-sm hover:bg-purple-700 transition shadow-xl shadow-purple-100 uppercase tracking-widest disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full md:w-auto px-10 py-3.5 bg-brand text-white rounded-lg font-black text-sm hover:bg-brand-dark transition shadow-xl shadow-purple-100 tracking-wide disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Enviando..." : "Enviar Formulario"}
             </button>
